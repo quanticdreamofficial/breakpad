@@ -460,13 +460,14 @@ namespace google_breakpad {
 
   bool HTTPUpload::SendGetRequest(
       const wstring& url,
+	  const wstring& headers,
       int* timeout_ms,
       wstring* response_body,
       int* response_code) {
     return SendRequestInner(
         url,
         L"GET",
-        L"",
+        headers,
         "",
         timeout_ms,
         response_body,

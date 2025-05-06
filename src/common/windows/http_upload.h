@@ -72,6 +72,7 @@ class HTTPUpload {
   // received (or 0 if the request failed before getting an HTTP response).
   static bool SendGetRequest(
       const wstring& url,
+	  const wstring& headers,
       int* timeout_ms,
       wstring* response_body,
       int* response_code);
