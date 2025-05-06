@@ -37,6 +37,7 @@
 
 #include <fstream>
 #include <vector>
+#include <filesystem>
 
 #include "common/windows/string_utils-inl.h"
 
@@ -370,6 +371,7 @@ namespace {
     }
 
     string filename_utf8 = WideToUTF8(filename);
+	std::filesystem::path filename_path(filename_utf8);
     if (filename_utf8.empty()) {
       return false;
     }
@@ -381,7 +383,7 @@ namespace {
           file_part_name_utf8 +
           "\"; "
           "filename=\"" +
-          filename_utf8 + "\"\r\n");
+          filename_path.filename().string() + "\"\r\n");
       request_body->append("Content-Type: application/octet-stream\r\n");
       request_body->append("\r\n");
     }
@@ -394,6 +396,7 @@ namespace {
     if (!contents.empty()) {
       request_body->append(&(contents[0]), contents.size());
     }
+    request_body->append("\r\n");
 
     return true;
   }
