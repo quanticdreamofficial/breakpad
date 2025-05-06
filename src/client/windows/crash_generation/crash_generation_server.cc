@@ -133,6 +133,13 @@ CrashGenerationServer::CrashGenerationServer(
   InitializeCriticalSection(&sync_);
 }
 
+void CrashGenerationServer::AskForDump() {
+  if (pre_fetch_custom_info_) {
+    clients_.front()->PopulateCustomInfo();
+  }
+  HandleDumpRequest(*clients_.front());
+}
+
 // This should never be called from the OnPipeConnected callback.
 // Otherwise the UnregisterWaitEx call below will cause a deadlock.
 CrashGenerationServer::~CrashGenerationServer() {

@@ -105,6 +105,10 @@ class CrashGenerationServer {
     pre_fetch_custom_info_ = do_pre_fetch;
   }
 
+  // Custom function called by server.cc when the Wer module asked for a crash
+  // dump to be generated See wer_module.cc
+  void AskForDump();
+
  private:
   // Various states the client can be in during the handshake with
   // the server.
